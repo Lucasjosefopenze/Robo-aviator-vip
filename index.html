@@ -1,48 +1,234 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>ROBÔ AVIATOR</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
-  <style>
-    :root { --primary:#1a73e8;--primary-hover:#155ab6;--whatsapp:#25d366;--whatsapp-hover:#1ebc59;--text:#333;--background:linear-gradient(to bottom,#e3f2fd,#ffffff); }
-    * { margin:0; padding:0; box-sizing:border-box; }
-    body { font-family:'Poppins',sans-serif; background:var(--background); padding:20px; display:flex; justify-content:center; min-height:100vh; }
-    .container { max-width:480px; width:100%; background:#fff; border-radius:12px; box-shadow:0 8px 20px rgba(0,0,0,0.1); animation:fadeIn 0.5s ease; overflow:hidden; }
-    .header-image { width:100%; display:block; }
-    .content { padding:20px; text-align:center; }
-    .timer { margin:10px 0; color:#e53935; font-weight:bold; }
-    .progress-bar { width:100%; height:6px; background:#ddd; border-radius:4px; overflow:hidden; margin-bottom:10px; }
-    .progress-bar-inner { width:100%; height:100%; background:#e53935; transition:width 1s linear; }
-    button { padding:10px 20px; font-size:1rem; border:none; border-radius:30px; cursor:pointer; margin:5px; transition:transform .2s ease; }
-    .btn-whatsapp { background:var(--whatsapp); color:#fff; font-weight:600; animation:pulse 2s infinite; box-shadow:0 0 10px rgba(0,0,0,0.15); }
-    .btn-whatsapp:hover { background:var(--whatsapp-hover); transform:translateY(-3px); }
-    .btn-primary { background:var(--primary); color:#fff; }
-    .btn-primary:hover:not(:disabled) { background:var(--primary-hover); }
-    #unlockBtn.pulse-effect { animation:pulseAlt 1.8s infinite; background: linear-gradient(135deg,#1a73e8,#5591ff); box-shadow:0 0 15px rgba(26,115,232,0.4); }
-    @keyframes fadeIn { from{opacity:0;transform:translateY(20px);} to{opacity:1;transform:translateY(0);} }
-    @keyframes pulse { 0%,100%{transform:scale(1);}50%{transform:scale(1.05);} }
-    @keyframes pulseAlt { 0%,100%{transform:scale(1);box-shadow:0 0 15px rgba(26,115,232,0.4);}50%{transform:scale(1.05);box-shadow:0 0 25px rgba(26,115,232,0.6);} }
-    .hidden{display:none;}
-    .step-box { background:#f1f8ff; border-radius:8px; padding:16px; box-shadow:0 2px 10px rgba(0,0,0,0.05); margin-bottom:20px; text-align:left; }
-    .step-box:nth-child(2) { background:#fff8f0; }
-    .step-box h3 { margin-bottom:10px; font-size:1.1rem; }
-    .step-box p { margin-bottom:12px; font-size:0.95rem; line-height:1.4; }
-    .step-box button { width:100%; font-weight:600; }
-    .step-box button.pulse-effect { animation:pulseAlt 1.8s infinite; }
-    .step-box button:disabled { opacity:0.6; cursor:not-allowed; }
-    .comment { display:flex; gap:10px; background:#f9f9f9; padding:10px; border-radius:8px; margin-bottom:12px; align-items:flex-start; }
-    .comment img { width:48px; height:48px; border-radius:50%; object-fit:cover; }
-    .text { flex:1; text-align:left; }
-    .reactions { margin-top:8px; }
-    .like-btn { background:none; border:none; cursor:pointer; font-size:0.9rem; color:#1a73e8; padding:4px 8px; border-radius:4px; position:relative; }
-    .like-btn.explodir { animation:explode 0.3s ease; }
-    @keyframes explode { 0%{transform:scale(1);}50%{transform:scale(1.5);}100%{transform:scale(1);} }
-  </style>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>ROBÔ AVIATOR</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --primary:#1a73e8;
+    --primary-hover:#155ab6;
+    --whatsapp:#25d366;
+    --whatsapp-hover:#1ebc59;
+    --text:#333;
+    --background:linear-gradient(to bottom,#e3f2fd,#ffffff);
+  }
+  * {
+    margin:0; padding:0; box-sizing:border-box;
+  }
+  body {
+    font-family:'Poppins',sans-serif;
+    background:var(--background);
+    padding:20px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+    text-align:center;
+  }
+  .container {
+    max-width:480px;
+    width:100%;
+    background:#fff;
+    border-radius:12px;
+    box-shadow:0 8px 20px rgba(0,0,0,0.1);
+    animation:fadeIn 0.5s ease;
+    overflow:hidden;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+  .header-image {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin-bottom: 20px;
+    border-radius: 12px;
+  }
+  .content {
+    width: 100%;
+  }
+  .timer {
+    margin:10px 0;
+    color:#e53935;
+    font-weight:bold;
+  }
+  .progress-bar {
+    width:100%;
+    height:6px;
+    background:#ddd;
+    border-radius:4px;
+    overflow:hidden;
+    margin-bottom:10px;
+  }
+  .progress-bar-inner {
+    width:100%;
+    height:100%;
+    background:#e53935;
+    transition:width 1s linear;
+  }
+  button {
+    padding:10px 20px;
+    font-size:1rem;
+    border:none;
+    border-radius:30px;
+    cursor:pointer;
+    margin:5px auto;
+    transition:transform .2s ease;
+    display: block;
+    max-width: 240px;
+    width: 100%;
+  }
+  .btn-whatsapp {
+    background:var(--whatsapp);
+    color:#fff;
+    font-weight:600;
+    animation:pulse 2s infinite;
+    box-shadow:0 0 10px rgba(0,0,0,0.15);
+  }
+  .btn-whatsapp:hover {
+    background:var(--whatsapp-hover);
+    transform:translateY(-3px);
+  }
+  .btn-primary {
+    background:var(--primary);
+    color:#fff;
+  }
+  .btn-primary:hover:not(:disabled) {
+    background:var(--primary-hover);
+  }
+  #unlockBtn.pulse-effect {
+    animation:pulseAlt 1.8s infinite;
+    background: linear-gradient(135deg,#1a73e8,#5591ff);
+    box-shadow:0 0 15px rgba(26,115,232,0.4);
+  }
+  @keyframes fadeIn {
+    from {opacity:0; transform:translateY(20px);}
+    to {opacity:1; transform:translateY(0);}
+  }
+  @keyframes pulse {
+    0%,100%{transform:scale(1);}
+    50%{transform:scale(1.05);}
+  }
+  @keyframes pulseAlt {
+    0%,100%{transform:scale(1); box-shadow:0 0 15px rgba(26,115,232,0.4);}
+    50%{transform:scale(1.05); box-shadow:0 0 25px rgba(26,115,232,0.6);}
+  }
+  .hidden {
+    display:none;
+  }
+  .step-box {
+    background:#f1f8ff;
+    border-radius:8px;
+    padding:16px;
+    box-shadow:0 2px 10px rgba(0,0,0,0.05);
+    margin-bottom:20px;
+    text-align:center;
+    max-width: 480px;
+    width: 100%;
+  }
+  .step-box:nth-child(2) {
+    background:#fff8f0;
+  }
+  .step-box h3 {
+    margin-bottom:10px;
+    font-size:1.1rem;
+  }
+  .step-box p {
+    margin-bottom:12px;
+    font-size:0.95rem;
+    line-height:1.4;
+  }
+  .step-box button {
+    width: 100%;
+    max-width: 240px;
+    margin: 0 auto;
+    font-weight:600;
+    display: block;
+  }
+  .step-box button.pulse-effect {
+    animation:pulseAlt 1.8s infinite;
+  }
+  .step-box button:disabled {
+    opacity:0.6;
+    cursor:not-allowed;
+  }
+  .comment {
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 8px;
+    background:#f9f9f9;
+    padding:10px;
+    border-radius:8px;
+    margin-bottom:12px;
+  }
+  .comment img {
+    width:48px;
+    height:48px;
+    border-radius:50%;
+    object-fit:cover;
+    margin-bottom: 8px;
+  }
+  .text {
+    flex:none;
+  }
+  .reactions {
+    margin-top:8px;
+    text-align:center;
+  }
+  .like-btn {
+    background:none;
+    border:none;
+    cursor:pointer;
+    font-size:0.9rem;
+    color:#1a73e8;
+    padding:4px 8px;
+    border-radius:4px;
+    position:relative;
+  }
+  .like-btn.explodir {
+    animation:explode 0.3s ease;
+  }
+  @keyframes explode {
+    0%{transform:scale(1);}
+    50%{transform:scale(1.5);}
+    100%{transform:scale(1);}
+  }
+  /* Ajustes específicos para a página 2 */
+  #page2 .header-image {
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto 20px;
+    display: block;
+    border-radius: 12px;
+  }
+  textarea#depoimentoTexto {
+    display: block;
+    margin: 0 auto 8px;
+    max-width: 480px;
+    width: 100%;
+    padding: 8px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    resize: vertical;
+  }
+  #page2 > div {
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+</style>
 </head>
 <body>
   <div class="container">
+
     <!-- TELA 1 -->
     <div id="page1" class="content">
       <img src="https://i.postimg.cc/sxSwnvZg/20250618-234348.png" class="header-image" alt="ROBÔ AVIATOR"/>
@@ -82,118 +268,129 @@
 
       <div style="margin-top:20px;">
         <h4>🗣️ Deixe seu depoimento</h4>
-        <textarea id="depoimentoTexto" rows="4" style="width:100%;padding:8px; margin-bottom:8px;"></textarea>
+        <textarea id="depoimentoTexto" rows="4"></textarea>
         <button class="btn-primary" onclick="enviarDepoimento()">Enviar</button>
       </div>
 
       <footer style="margin-top:20px;font-size:.8rem;">&copy; 2025 Robô Aviator</footer>
     </div>
+
   </div>
 
-  <script>
-    const joinBtn = document.getElementById('joinGroupBtn');
-    const unlockBtn = document.getElementById('unlockBtn');
-    const timerMsg = document.getElementById('timerMsg');
-    const progressBar = document.getElementById('progressBar');
-    const errorMsg = document.getElementById('errorMsg');
-    const page1 = document.getElementById('page1');
-    const page2 = document.getElementById('page2');
-    const registerBtn = document.getElementById('registerBtn');
-    const downloadBtn = document.getElementById('downloadBtn');
+<script>
+  const joinBtn = document.getElementById('joinGroupBtn');
+  const unlockBtn = document.getElementById('unlockBtn');
+  const timerMsg = document.getElementById('timerMsg');
+  const progressBar = document.getElementById('progressBar');
+  const errorMsg = document.getElementById('errorMsg');
+  const page1 = document.getElementById('page1');
+  const page2 = document.getElementById('page2');
+  const registerBtn = document.getElementById('registerBtn');
+  const downloadBtn = document.getElementById('downloadBtn');
+  const testimonialList = document.getElementById('testimonialList');
+  const depoimentoTexto = document.getElementById('depoimentoTexto');
 
-    let joined=false, expired=false;
+  let timer = 10;
+  let timerInterval = null;
+  let entrouNoGrupo = false;
 
-    window.onload = () => {
-      let s=10;
-      const iv=setInterval(()=>{
-        s--; timerMsg.textContent=`⏳ ${s}s restantes...`;
-        progressBar.style.width=`${s/10*100}%`;
-        if(s<=0){
-          clearInterval(iv);
-          expired=true;
-          if(joined) activateUnlock(); else errorMsg.classList.remove('hidden');
-        }
-      },1000);
-    };
+  function startTimer() {
+    progressBar.style.width = '100%';
+    timerMsg.textContent = `⏳ ${timer}s restantes...`;
+    timerInterval = setInterval(() => {
+      timer--;
+      timerMsg.textContent = `⏳ ${timer}s restantes...`;
+      progressBar.style.width = `${(timer / 10) * 100}%`;
+      if(timer <= 0){
+        clearInterval(timerInterval);
+        timerMsg.textContent = 'Tempo esgotado! Clique no botão abaixo se já entrou.';
+        unlockBtn.classList.remove('hidden');
+        unlockBtn.classList.add('pulse-effect');
+        joinBtn.disabled = false; // mantém clicável após o tempo
+      }
+    }, 1000);
+  }
 
-    joinBtn.onclick = () => {
-      window.open('https://abre.ai/grupo-vip2','_blank');
-      joined=true;
-      if(expired) activateUnlock();
-    };
+  joinBtn.addEventListener('click', () => {
+    entrouNoGrupo = true;
+    alert("Você foi redirecionado para o grupo VIP do WhatsApp!");
+    window.open('https://abre.ai/grupo-vip3', '_blank');
+  });
 
-    function activateUnlock(){
-      unlockBtn.classList.remove('hidden');
-      unlockBtn.classList.add('pulse-effect');
-      errorMsg.classList.add('hidden');
-      unlockBtn.onclick = () => {
-        page1.classList.add('hidden');
-        page2.classList.remove('hidden');
-        renderDepoimentos();
-      };
+  unlockBtn.addEventListener('click', () => {
+    if (!entrouNoGrupo) {
+      errorMsg.classList.remove('hidden');
+      return;
     }
+    errorMsg.classList.add('hidden');
+    page1.classList.add('hidden');
+    page2.classList.remove('hidden');
+  });
 
-    registerBtn.onclick = () => {
-      window.open('https://abre.ai/conta-oficial','_blank');
-      downloadBtn.disabled=false;
-      downloadBtn.classList.add('pulse-effect');
+  registerBtn.addEventListener('click', () => {
+    window.open('https://abre.ai/conta-oficial', '_blank');
+    registerBtn.disabled = true;
+    registerBtn.textContent = 'Registrado ✔️';
+    downloadBtn.disabled = true; // mantém sempre desabilitado
+  });
+
+  downloadBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    // botão sempre bloqueado, nada acontece
+  });
+
+  // Depoimentos pré-carregados
+  const depoimentos = [
+    {id:1, nome:"Ana Silva", texto:"Ganhei mais de 2000 MZN usando o robô!"},
+    {id:2, nome:"Carlos Santos", texto:"Muito fácil e rápido de ativar. Recomendo!"},
+    {id:3, nome:"Maria Oliveira", texto:"Lucro constante, estou satisfeita."}
+  ];
+
+  function criarComentario({id, nome, texto}) {
+    const div = document.createElement('div');
+    div.className = 'comment';
+    div.innerHTML = `
+      <img src="https://i.pravatar.cc/48?u=${id}" alt="${nome}"/>
+      <div class="text"><strong>${nome}:</strong> ${texto}</div>
+      <div class="reactions">
+        <button class="like-btn" onclick="curtir(this)">Curtir 👍</button>
+      </div>
+    `;
+    return div;
+  }
+
+  function carregarDepoimentos() {
+    testimonialList.innerHTML = '';
+    depoimentos.forEach(d => {
+      testimonialList.appendChild(criarComentario(d));
+    });
+  }
+
+  function curtir(botao) {
+    botao.classList.add('explodir');
+    setTimeout(() => botao.classList.remove('explodir'), 300);
+  }
+
+  function enviarDepoimento() {
+    const texto = depoimentoTexto.value.trim();
+    if (texto.length < 5) {
+      alert("Digite um depoimento com pelo menos 5 caracteres.");
+      return;
+    }
+    const novo = {
+      id: Date.now(),
+      nome: "Você",
+      texto: texto
     };
-    downloadBtn.onclick = () => {
-      if(!downloadBtn.disabled) window.open('https://abre.ai/download-aviator','_blank');
-    };
+    depoimentos.unshift(novo);
+    carregarDepoimentos();
+    depoimentoTexto.value = '';
+  }
 
-    const depoimentos = [
-      { nome:"Rosa Matola", foto:"https://i.pravatar.cc/150?u=moz-afro1", texto:"Ganhei um bônus de 700 MZN e a minha renda aumentou muito! Obrigado, esse bot é o melhor!", likes:3576, voted:false },
-      { nome:"Alberto Macamo", foto:"https://i.pravatar.cc/150?u=moz-afro2", texto:"Obrigado ao Robô Aviator – recebi 500 MZN de bônus e já fiz meu primeiro saque!", likes:2479, voted:false },
-      { nome:"Cremilda Tovela", foto:"https://i.pravatar.cc/150?u=moz-afro3", texto:"Esse bot mudou minha vida! Tirei um bônus de 750 MZN e recomendo a todos!", likes:4684, voted:false },
-      { nome:"José Baloi", foto:"https://i.pravatar.cc/150?u=moz-afro4", texto:"Muito obrigado! Ganhei bônus de 600 MZN e o suporte é excelente.", likes:3122, voted:false },
-      { nome:"Sara Massinga", foto:"https://i.pravatar.cc/150?u=moz-afro5", texto:"Bônus de 800 MZN no primeiro dia – recomendo esse bot é mau!", likes:2890, voted:false },
-      { nome:"Pedro Simango", foto:"https://i.pravatar.cc/150?u=moz-afro6", texto:"Obrigado ao senhor! Bônus de 650 MZN e ganhei pelo bot.", likes:4511, voted:false },
-      { nome:"Ana Djú", foto:"https://i.pravatar.cc/150?u=moz-afro7", texto:"Esse é o melhor bot! 700 MZN de bônus, fiz deposito de 150 já no primeiro dia.", likes:3744, voted:false },
-      { nome:"Filipe Nuvunga", foto:"https://i.pravatar.cc/150?u=moz-afro8", texto:"essa plataforma mudou a minha vida Bônus de 550 MZN e logo no meu primeiro dia, obrigado!", likes:3998, voted:false }
-    ];
+  // Inicializa
+  carregarDepoimentos();
+  startTimer();
+</script>
 
-    function renderDepoimentos(){
-      const el = document.getElementById('testimonialList');
-      el.innerHTML='';
-      depoimentos.forEach((d,i)=>{
-        const c=document.createElement('div'); c.className='comment';
-        c.innerHTML=`
-          <img src="${d.foto}" alt="${d.nome}">
-          <div class="text">
-            <strong>${d.nome}</strong>
-            <p>${d.texto}</p>
-            <div class="reactions" data-idx="${i}">
-              <button class="like-btn">${d.likes} likes</button>
-            </div>
-          </div>`;
-        el.appendChild(c);
-      });
-      bindReactions();
-    }
-
-    function bindReactions(){
-      document.querySelectorAll('.like-btn').forEach(btn=>{
-        const i=btn.closest('.reactions').getAttribute('data-idx');
-        btn.onclick=()=>{
-          if(depoimentos[i].voted) return;
-          depoimentos[i].likes++;
-          depoimentos[i].voted=true;
-          btn.textContent=`${depoimentos[i].likes} likes`;
-          btn.classList.add('explodir');
-          setTimeout(()=>btn.classList.remove('explodir'),300);
-        };
-      });
-    }
-
-    function enviarDepoimento(){
-      const txt = document.getElementById('depoimentoTexto');
-      if(!txt.value.trim()){ alert('⚠️ Escreva algo!'); return; }
-      depoimentos.unshift({ nome:'Novo Membro', foto:'https://i.pravatar.cc/150?u=moz-afro_new', texto:txt.value, likes:3000, voted:false });
-      txt.value='';
-      renderDepoimentos();
-      alert('✅ Depoimento enviado! Será publicado após aprovação.');
-    }
-  </script>
 </body>
 </html>
